@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apresentação Quill JS – Clube do Vinho</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="slide-container">
+
+    <div align="center" class="slide active">
+      <img src="https://miro.medium.com/v2/resize:fit:700/1*LqJUAuOjg3q3XFmqbyel6g.png" width="450" height="180" alt="Logo Quill JS" class="logo">
+      <p class="intro">Editor de Rich Text moderno e open-source.</p>
+      <img src="https://i.imgur.com/YkCLHMe.png" width="850" height="400" alt="Demonstração Quill" class="screenshot">
+    </div>
+
+    <div class="slide">
+      <h2>O que o Quill JS resolve</h2>
+      <ul>
+        <li>Oferecer um editor de Rich Text com visualização direta (WYSIWYG).</li>
+        <li>Evitar inconsistências de conteúdo entre navegadores.</li>
+        <li>Reduzir dependência de soluções complexas e difíceis de manter.</li>
+      </ul>
+    </div>
+
+    
+    <div class="slide">
+      <h2>Como funciona a aplicabilidade</h2>
+      <p>
+        O Quill funciona como um editor baseado em JavaScript que transforma um elemento HTML em uma área de edição interativa. Ele utiliza uma estrutura chamada "Delta" para rastrear mudanças no conteúdo e gerar uma saída limpa e bem formatada (HTML ou JSON). Sua API facilita o controle de formatos como negrito, itálico, cabeçalhos, links e até conteúdos incorporados como vídeos e imagens.
+      </p>
+      <ul>
+        <li>Fácil inicialização com apenas uma linha de código.</li>
+        <li>Altamente customizável por meio de módulos e temas.</li>
+        <li>Permite integração com formulários e APIs.</li>
+      </ul>
+    </div>
+
+
+    <div class="slide">
+      <h2>Motivação do uso no projeto “Clube do Vinho”</h2>
+      <ul>
+        <li>Facilidade na criação de descrições ricas para novos vinhos.</li>
+        <li>Permitir a inclusão de detalhes como aroma, paladar, harmonizações e vídeos.</li>
+        <li>Interface amigável para administradores e usuários não-técnicos.</li>
+        <br>
+      </ul>
+      <img src="https://i.imgur.com/To8mV3m.png" align="center" width="900" height="550">
+      <br>
+      <br>
+      <img src="https://i.imgur.com/fPMhqZk.png" align="center" width="900" height="420">
+    </div>
+
+    <div class="slide">
+      <h2>Consequências dentro do projeto</h2>
+      <p><strong>Positivas:</strong></p>
+      <ul>
+        <li>Interface moderna e intuitiva.</li>
+        <li>Melhoria na experiência de uso e no visual da descrição dos vinhos.</li>
+        <li>Facilidade na manutenção e expansão futura.</li>
+      </ul>
+      <p><strong>Negativas:</strong></p>
+      <ul>
+        <li>Carregamento adicional de arquivos CSS e JS (impacto no desempenho inicial).</li>
+        <li>Requer adaptação do backend para interpretar conteúdo Delta ou HTML.</li>
+        <li>Algumas limitações para personalizações visuais avançadas sem plugins.</li>
+      </ul>
+    </div>
+
+    <div class="slide">
+      <h2>Implementação no projeto</h2>
+      <p>HTML e inicialização do Quill JS:</p>
+      <img src="https://i.imgur.com/nBpNrwK.png" align="center" width="900" height="370" style="border-radius: 15px">
+      <br>
+      <br>
+      <img src="https://i.imgur.com/ORErMwJ.png" align="center" width="900" height="380" style="border-radius: 15px">
+      <br>
+      <br>
+      <img src="https://i.imgur.com/ckfolVn.png" align="center" width="900" height="500" style="border-radius: 15px">
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" disabled>Voltar</button>
+      <button id="nextBtn">Avançar</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+  
+    function updateButtons() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+  
+    function showSlide(idx) {
+      slides[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active');
+      updateButtons();
+    }
+  
+    prevBtn.addEventListener('click', () => {
+      if (current > 0) showSlide(current - 1);
+    });
+  
+    nextBtn.addEventListener('click', () => {
+      if (current < slides.length - 1) showSlide(current + 1);
+    });
+  
+    // Atalhos com as setas do teclado
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight') {
+        if (current < slides.length - 1) showSlide(current + 1);
+      } else if (event.key === 'ArrowLeft') {
+        if (current > 0) showSlide(current - 1);
+      }
+    });
+  </script>
+  
+</body>
+</html>
